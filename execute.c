@@ -3,47 +3,8 @@
 
 #include "student.h"
 #include "io.h"
+#include "class.h"
 
-#define MAX_SIZE 11
-#define NEED_CLASS 10
-
-typedef struct {
-    int group;
-    int capacity;
-} Class;
-
-int in_classes(Class *classes, int cap, int group)
-{
-    for (int i = 0; i < cap; ++i) {
-        if (classes[i].group == group)
-            return 1;
-    }
-    return 0;
-}
-
-int cap_class(Class *classes, int cap, int group)
-{
-    for (int i = 0; i < cap; ++i) {
-        if (classes[i].group == group)
-            return classes[i].capacity;
-    }
-
-    return 0;
-}
-
-void print_comprison_of_student(Class *classes, int cap, int n)
-{
-    for (int i = 0; i < cap; ++i) {
-        if(classes[i].group != NEED_CLASS) {
-            if (classes[i].capacity > n)
-                fprintf(stdout, "\n%d-й класс больше 10-го на %d\n", classes[i].group, classes[i].capacity - n);
-            else if (classes[i].capacity < n)
-                fprintf(stdout, "\n%d-й класс меньше 10-го на %d\n", classes[i].group, n - classes[i].capacity);
-            else
-                fprintf(stdout, "\n%d-й и 10-й классы имеют одинаковое количество учеников - равное %d.\n", classes[i].group, n);
-        }
-    }
-}
 
 int main(int argc, char **argv)
 {
@@ -78,7 +39,7 @@ int main(int argc, char **argv)
     }
 
     int cap_need_class = cap_class(&classes, number_of_classes, NEED_CLASS);
-    print_comprison_of_student(&classes, number_of_classes, cap_need_class);
+    print_comprison_of_classes(&classes, number_of_classes, cap_need_class);
     printf("\n");
 
     return 0;
