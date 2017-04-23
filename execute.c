@@ -21,6 +21,30 @@ int in_classes(Class *classes, int cap, int group)
     return 0;
 }
 
+int cap_class(Class *classes, int cap, int group)
+{
+    for (int i = 0; i < cap; ++i) {
+        if (classes[i].group == group)
+            return classes[i].capacity;
+    }
+
+    return 0;
+}
+
+void print_comprison_of_student(Class *classes, int cap, int n)
+{
+    for (int i = 0; i < cap; ++i) {
+        if(classes[i].group != NEED_CLASS) {
+            if (classes[i].capacity > n)
+                fprintf(stdout, "\n%d-й класс больше 10-го на %d\n", classes[i].group, classes[i].capacity - n);
+            else if (classes[i].capacity < n)
+                fprintf(stdout, "\n%d-й класс меньше 10-го на %d\n", classes[i].group, n - classes[i].capacity);
+            else
+                fprintf(stdout, "\n%d-й и 10-й классы имеют одинаковое количество учеников - равное %d.\n", classes[i].group, n);
+        }
+    }
+}
+
 int main(int argc, char **argv)
 {
     if (argc != 2) {
@@ -36,11 +60,7 @@ int main(int argc, char **argv)
 
     Student student;
     Class classes[MAX_SIZE];
-    int number_of_classes = 1;
-
-    student_read_bin(&student, in);
-    classes[0].group = student.group;
-    classes[0].capacity = 1;
+    int number_of_classes = 0;
 
     while (student_read_bin(&student, in)) {
         if(in_classes(&classes, number_of_classes, student.group)) {
@@ -56,8 +76,10 @@ int main(int argc, char **argv)
             number_of_classes++;
         }
     }
-    printf("%d %d\n", classes[0].group, classes[0].capacity);
-    printf("%d %d\n", classes[1].group, classes[1].capacity);
-    printf("%d %d\n", classes[2].group, classes[2].capacity);
+
+    int cap_need_class = cap_class(&classes, number_of_classes, NEED_CLASS);
+    print_comprison_of_student(&classes, number_of_classes, cap_need_class);
+    printf("\n");
+
     return 0;
 }
