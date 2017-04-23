@@ -9,7 +9,7 @@ generate: io.o generate.o
 print:    io.o print.o
 	$(CC) $^ -o $@
 
-execute:  io.o execute.o
+execute:  class.o io.o execute.o
 	$(CC) $^ -o $@
 
 clean:
