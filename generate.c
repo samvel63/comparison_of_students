@@ -23,7 +23,9 @@ int main(int argc, char **argv)
 
     table_create(&table, "CAPACITY STUDENTS");
     table_load_txt(&table, &student, in);
+    table_delete(&table, 10);
     
+
     table_save(&table, out);
 
     table_destroy(&table);    

@@ -42,14 +42,17 @@ void table_print(Table *table)
         printf("%d \t %s \t    %s \t\t %d\n", i + 1, table->students[i].surname, table->students[i].initials, table->students[i].group);
 }
 
-void table_
+void table_delete(Table *table, int index)
 {
-
+    table->num_students--;
+    for (int i = index - 1; i < table->num_students; ++i)
+        memcpy(&table->students[i], &table->students[i + 1], sizeof(Student));
+    table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
 }
 
 void add_student(Table *table, Student *student)
 {
-	table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
+    table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
 
 	strncpy(table->students[table->num_students].surname, student->surname, STR_SIZE);
 	strncpy(table->students[table->num_students].initials, student->initials, STR_SIZE);
