@@ -9,11 +9,15 @@
 int main(void)
 {
 	Table table;
-	table_create(&table, "HUY");
 	Tuple tuple;
-	add_student(&tuple, "MhitaryanSA", 'M', 10);
-	//printf("%s == %c == %d\n", tuple.full_name, tuple.gender, tuple.class);
-	tuple_insert(&table, &tuple);
+
+	char name[NAME_LENGTH];
+	Gender gender;
+	char s;
+	int class;
+	scanf("%s %c %d", name, &gender, &class);
+	table_create(&table, "CAPACITY STUDENTS");
+	add_student(&table, &tuple, &name[0], gender, class);
+
 	print(&table);
-	printf("%s == %c == %d\n", table.tuples[0].full_name, table.tuples[0].gender, table.tuples[0].class);
 }

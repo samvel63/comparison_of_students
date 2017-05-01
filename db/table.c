@@ -25,11 +25,12 @@ void tuple_insert(Table *table, Tuple *tuple)
 	table->num_tuples++;
 }
 
-void add_student(Tuple *tuple, const char *full_name, const Gender gender, const int class)
+void add_student(Table *table, Tuple *tuple, const char *full_name, const Gender gender, const int class)
 {
 	strncpy(tuple->full_name, full_name, NAME_LENGTH);
 	tuple->gender = gender;
 	tuple->class = class;
+	tuple_insert(table, tuple);
 }
 
 void print(Table *table)

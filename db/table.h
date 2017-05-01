@@ -20,7 +20,7 @@ typedef struct {
 void table_create(Table *table, const char *name);
 void table_destroy(Table *table);
 void tuple_insert(Table *table, Tuple *tuple);
-void add_student(Tuple *tuple, const char *full_name, const Gender gender, const int class);
+void add_student(Table *table, Tuple *tuple, const char *full_name, const Gender gender, const int class);
 void print(Table *table);
 
 #endif
