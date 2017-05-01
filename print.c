@@ -18,16 +18,13 @@ int main(int argc, char **argv)
     }
 
     Table table;
-    table_create(&table, "CAPACITY STUDENTS");
     Student student;
+    table_create(&table, "CAPACITY STUDENTS");
 
-    while (student_read_bin(&student, in)) {
-        add_student(&table, &student);
-        //student_print(&student);
-    }
+    table_load_bin(&table, &student, in);
     table_print(&table);
+    
     fclose(in);
-
     return 0;
 }
 

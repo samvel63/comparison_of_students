@@ -30,11 +30,6 @@ void student_write_bin(Student *s, FILE *out)
     fwrite(&(s->group), sizeof(int), 1, out);
 }
 
-/*void table_save(Table *table, FILE *out)
-{
-    for (int i = 0; i < table->num_)
-}*/
-
 void student_print(Student *s)
 {
     printf("Name: %s %s\n", s->surname, s->initials);

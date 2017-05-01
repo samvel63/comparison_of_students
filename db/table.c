@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "io.h"
 #include "table.h"
 
 void table_create(Table *table, const char *name)
@@ -16,11 +17,34 @@ void table_destroy(Table *table)
 	free(table->students);
 }
 
+void table_load_txt(Table *table, Student *s, FILE *in)
+{
+    while (student_read_txt(s, in))
+        add_student(table, s);
+}
+
+void table_load_bin(Table *table, Student *s, FILE *in)
+{
+    while (student_read_bin(s, in))
+        add_student(table, s);
+}
+
+void table_save(Table *table, FILE *out)
+{
+    for (int i = 0; i < table->num_students; ++i)
+        student_write_bin(&(table->students[i]), out);
+}
+
 void table_print(Table *table)
 {
-	printf("Number \t Surname \t Initials \t Class\n");
-	for (int i = 0; i < table->num_students; ++i)
-		printf("%d \t %s \t    %s \t\t %d\n", i + 1, table->students[i].surname, table->students[i].initials, table->students[i].group);
+    printf("Number \t Surname \t Initials \t Class\n");
+    for (int i = 0; i < table->num_students; ++i)
+        printf("%d \t %s \t    %s \t\t %d\n", i + 1, table->students[i].surname, table->students[i].initials, table->students[i].group);
+}
+
+void table_
+{
+
 }
 
 void add_student(Table *table, Student *student)

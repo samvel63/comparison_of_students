@@ -5,28 +5,32 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 3) {
-        printf("Usage:\n\t./generate FILE_FROM FILE_TO\n");
+    if (argc != 2) {
+        printf("Usage:\n\t./generate FILE\n");
         exit(0);
     }
 
     FILE *in  = fopen(argv[1], "r");
-    FILE *out = fopen(argv[2], "w");
+    FILE *out = fopen("db.bin", "w");
 
-    if (!in || !out) {
+    if (!in) {
         printf("I/O Error: can't open file.\n");
         exit(1);
     }
 
-    Student s;
+    Table table;
+    Student student;
 
-    while (student_read_txt(&s, in)) {
-        student_write_bin(&s, out);
-    }
+    table_create(&table, "CAPACITY STUDENTS");
+    table_load_txt(&table, &student, in);
+    
+    table_save(&table, out);
 
+    table_destroy(&table);    
     fclose(in);
     fclose(out);
 
     return 0;
+
 }
 
