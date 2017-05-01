@@ -1,26 +1,24 @@
 #ifndef _TABLE_H_
 #define _TABLE_H_
 
-#define NAME_LENGTH 64
-
-typedef char Gender;
+#define STR_SIZE 64
 
 typedef struct {
-	Gender gender;
-	int class;
-	char full_name[NAME_LENGTH];
-} Tuple;
+    char surname[STR_SIZE];
+    char initials[STR_SIZE];
+    int  group;
+} Student;
+
 
 typedef struct {
-	char name[NAME_LENGTH];
-	Tuple *tuples;
-	size_t num_tuples;
+	char name[STR_SIZE];
+	Student *students;
+	size_t num_students;
 } Table;
 
 void table_create(Table *table, const char *name);
 void table_destroy(Table *table);
-void tuple_insert(Table *table, Tuple *tuple);
-void add_student(Table *table, Tuple *tuple, const char *full_name, const Gender gender, const int class);
-void print(Table *table);
+void add_student(Table *table, Student *student);
+void table_print(Table *table);
 
 #endif

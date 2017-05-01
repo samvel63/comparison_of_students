@@ -1,8 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "student.h"
-#include "io.h"
+#include "db/api.h"
 
 int main(int argc, char **argv)
 {
@@ -18,12 +17,15 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    Student s;
+    Table table;
+    table_create(&table, "CAPACITY STUDENTS");
+    Student student;
 
-    while (student_read_bin(&s, in)) {
-        student_print(&s);
+    while (student_read_bin(&student, in)) {
+        add_student(&table, &student);
+        //student_print(&student);
     }
-
+    table_print(&table);
     fclose(in);
 
     return 0;

@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "student.h"
-#include "io.h"
 #include "class.h"
+#include "db/api.h"
 
 
 int main(int argc, char **argv)

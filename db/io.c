@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "student.h"
 #include "io.h"
+#include "table.h"
 
 /* Student IO */
 int student_read_txt(Student *s, FILE *in)
@@ -29,6 +29,11 @@ void student_write_bin(Student *s, FILE *out)
     fwrite(s->initials, sizeof(char), STR_SIZE, out);
     fwrite(&(s->group), sizeof(int), 1, out);
 }
+
+/*void table_save(Table *table, FILE *out)
+{
+    for (int i = 0; i < table->num_)
+}*/
 
 void student_print(Student *s)
 {

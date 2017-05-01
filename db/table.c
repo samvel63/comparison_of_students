@@ -6,35 +6,30 @@
 
 void table_create(Table *table, const char *name)
 {
-	strncpy(table->name, name, NAME_LENGTH);
-	table->tuples = (Tuple *)malloc(0);
-	table->num_tuples = 0;
+	strncpy(table->name, name, STR_SIZE);
+	table->students = (Student *)malloc(0);
+	table->num_students = 0;
 }
 
 void table_destroy(Table *table)
 {
-	free(table->tuples);
+	free(table->students);
 }
 
-void tuple_insert(Table *table, Tuple *tuple)
+void table_print(Table *table)
 {
-	table->tuples = (Tuple *)realloc(table->tuples, (table->num_tuples + 1) * sizeof(Tuple));
-	table->tuples[table->num_tuples].gender = tuple->gender;
-	table->tuples[table->num_tuples].class = tuple->class;
-	strncpy(table->tuples[table->num_tuples].full_name, tuple->full_name, NAME_LENGTH);
-	table->num_tuples++;
+	printf("Number \t Surname \t Initials \t Class\n");
+	for (int i = 0; i < table->num_students; ++i)
+		printf("%d \t %s \t    %s \t\t %d\n", i + 1, table->students[i].surname, table->students[i].initials, table->students[i].group);
 }
 
-void add_student(Table *table, Tuple *tuple, const char *full_name, const Gender gender, const int class)
+void add_student(Table *table, Student *student)
 {
-	strncpy(tuple->full_name, full_name, NAME_LENGTH);
-	tuple->gender = gender;
-	tuple->class = class;
-	tuple_insert(table, tuple);
-}
+	table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
 
-void print(Table *table)
-{
-	for (int i = 0; i < table->num_tuples; ++i)
-		printf("%d == %s == %c == %d\n", i + 1, table->tuples[i].full_name, table->tuples[i].gender, table->tuples[i].class);
+	strncpy(table->students[table->num_students].surname, student->surname, STR_SIZE);
+	strncpy(table->students[table->num_students].initials, student->initials, STR_SIZE);
+	table->students[table->num_students].group = student->group;
+
+	table->num_students++;
 }
