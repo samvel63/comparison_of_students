@@ -21,4 +21,4 @@ test: $(db_obj) io.o test.o
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f generate print execute test *.o
+	rm -f generate print execute test *.o db/*.o
