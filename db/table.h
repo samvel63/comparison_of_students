@@ -5,33 +5,22 @@
 
 typedef char Gender;
 
-typedef enum {
-	STRING,
-	INTEGER,
-	CHAR
-} Field_type;
-
 typedef struct {
-	Field_type type;
-	union {
-		Gender gender;
-		int num;
-		int class;
-		char full_name[NAME_LENGTH];
-	}
-} Field;
-
-typedef struct {
-	int num;
-	Field *field;
-	int numFields;
-
+	Gender gender;
+	int class;
+	char full_name[NAME_LENGTH];
 } Tuple;
 
-typedef {
+typedef struct {
 	char name[NAME_LENGTH];
 	Tuple *tuples;
-	size_t numTuples;
+	size_t num_tuples;
 } Table;
+
+void table_create(Table *table, const char *name);
+void table_destroy(Table *table);
+void tuple_insert(Table *table, Tuple *tuple);
+void add_student(Tuple *tuple, const char *full_name, const Gender gender, const int class);
+void print(Table *table);
 
 #endif
