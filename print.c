@@ -17,14 +17,15 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    Table table;
     Student student;
+    Table table;
     table_create(&table, "CAPACITY STUDENTS");
 
     table_load_bin(&table, &student, in);
     table_print(&table);
     
     fclose(in);
+    table_destroy(&table);
     return 0;
 }
 

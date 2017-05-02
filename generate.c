@@ -18,13 +18,11 @@ int main(int argc, char **argv)
         exit(1);
     }
 
-    Table table;
     Student student;
-
+    Table table;
     table_create(&table, "CAPACITY STUDENTS");
-    table_load_txt(&table, &student, in);
-    table_delete(&table, 10);
-    
+
+    table_load_txt(&table, &student, in);    
 
     table_save(&table, out);
 
