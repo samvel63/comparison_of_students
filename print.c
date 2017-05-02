@@ -22,7 +22,10 @@ int main(int argc, char **argv)
     table_create(&table, "CAPACITY STUDENTS");
 
     table_load_bin(&table, &student, in);
+
+    printf("\n\t\t%s\n", table.name);
     table_print(&table);
+    printf("\n");
     
     fclose(in);
     table_destroy(&table);

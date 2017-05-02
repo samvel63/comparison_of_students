@@ -5,13 +5,13 @@
 
 int main(int argc, char **argv)
 {
-    if (argc != 2) {
-        printf("Usage:\n\t./generate FILE\n");
+    if (argc != 3) {
+        printf("Usage:\n\t./generate FILE_FROM FILE_TO\n");
         exit(0);
     }
 
     FILE *in  = fopen(argv[1], "r");
-    FILE *out = fopen("db.bin", "w");
+    FILE *out = fopen(argv[2], "w");
 
     if (!in) {
         printf("I/O Error: can't open file.\n");

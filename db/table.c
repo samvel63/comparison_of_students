@@ -2,8 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "io.h"
-#include "table.h"
+#include "api.h"
 
 void table_create(Table *table, const char *name)
 {
@@ -22,21 +21,21 @@ void table_destroy(Table *table)
 	free(table->classes);
 }
 
-void table_load_txt(Table *table, Student *s, FILE *in)
+void table_load_txt(Table *table, Student *student, FILE *in)
 {
     int class = 0;
-    while (student_read_txt(s, in)) {
+    while (student_read_txt(student, in)) {
         fscanf(in, "%d", &class);
-        add_student(table, s, class);
+        add_student(table, student, class);
     }
 }
 
-void table_load_bin(Table *table, Student *s, FILE *in)
+void table_load_bin(Table *table, Student *student, FILE *in)
 {
     int class = 0;
-    while (student_read_bin(s, in)) {
+    while (student_read_bin(student, in)) {
         fread(&class, sizeof(int), 1, in);
-        add_student(table, s, class);        
+        add_student(table, student, class);        
     }
 }
 
@@ -50,6 +49,23 @@ void table_save(Table *table, FILE *out)
     }
 }
 
+void add_student(Table *table, Student *student, int class)
+{
+    table->classes[class - 1].students = (Student *)realloc(table->classes[class - 1].students, (table->classes[class - 1].capacity + 1) * sizeof(Student));
+
+    strncpy(table->classes[class - 1].students[table->classes[class - 1].capacity].surname, student->surname, STR_SIZE);
+    strncpy(table->classes[class - 1].students[table->classes[class - 1].capacity].initials, student->initials, STR_SIZE);
+    table->classes[class - 1].capacity++;
+}
+/*
+void table_delete(Table *table, int index)
+{
+    table->num_students--;
+    for (int i = index - 1; i < table->num_students; ++i)
+        memcpy(&table->students[i], &table->students[i + 1], sizeof(Student));
+    table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
+}
+*/
 void table_print(Table *table)
 {
     printf("Number \t Surname \t Initials \t Class\n");
@@ -61,20 +77,17 @@ void table_print(Table *table)
         }
     }
 }
-/*
-void table_delete(Table *table, int index)
-{
-    table->num_students--;
-    for (int i = index - 1; i < table->num_students; ++i)
-        memcpy(&table->students[i], &table->students[i + 1], sizeof(Student));
-    table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
-}
-*/
-void add_student(Table *table, Student *s, int class)
-{
-    table->classes[class - 1].students = (Student *)realloc(table->classes[class - 1].students, (table->classes[class - 1].capacity + 1) * sizeof(Student));
 
-    strncpy(table->classes[class - 1].students[table->classes[class - 1].capacity].surname, s->surname, STR_SIZE);
-    strncpy(table->classes[class - 1].students[table->classes[class - 1].capacity].initials, s->initials, STR_SIZE);
-    table->classes[class - 1].capacity++;
+void print_comprison_of_classes(Table *table)
+{
+    for (int i = 0; i < MAX_CLASSES; ++i) {
+        if (i + 1 != MAIN_CLASS && table->classes[i].capacity != 0) {
+            if (table->classes[i].capacity > table->classes[MAIN_CLASS - 1].capacity)
+                fprintf(stdout, "\n%d-й класс больше 10-го на %d\n", i + 1, table->classes[i].capacity - table->classes[MAIN_CLASS - 1].capacity);
+            else if (table->classes[i].capacity < table->classes[MAIN_CLASS - 1].capacity)
+                fprintf(stdout, "\n%d-й класс меньше 10-го на %d\n", i + 1, table->classes[MAIN_CLASS - 1].capacity - table->classes[i].capacity);
+            else
+                fprintf(stdout, "\n%d-й и 10-й классы имеют одинаковое количество учеников - равное %d.\n", i + 1, table->classes[MAIN_CLASS - 1].capacity);
+        }
+    }
 }

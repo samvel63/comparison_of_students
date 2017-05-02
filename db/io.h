@@ -1,7 +1,7 @@
 #ifndef _IO_H_
 #define _IO_H_
 
-#include "table.h"
+#include "class.h"
 
 /* Student IO */
 int  student_read_txt(Student *s, FILE *in);
