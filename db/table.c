@@ -57,15 +57,21 @@ void add_student(Table *table, Student *student, int class)
     strncpy(table->classes[class - 1].students[table->classes[class - 1].capacity].initials, student->initials, STR_SIZE);
     table->classes[class - 1].capacity++;
 }
-/*
-void table_delete(Table *table, int index)
+
+int delete_student(Table *table, Student *student, int class)
 {
-    table->num_students--;
-    for (int i = index - 1; i < table->num_students; ++i)
-        memcpy(&table->students[i], &table->students[i + 1], sizeof(Student));
-    table->students = (Student *)realloc(table->students, (table->num_students + 1) * sizeof(Student));
+    for (int i = 0; i < table->classes[class - 1].capacity; ++i) {
+        if (!strcmp(table->classes[class - 1].students[i].surname, student->surname) && !strcmp(table->classes[class - 1].students[i].initials, student->initials)) {
+            for (int j = i; j < table->classes[class - 1].capacity; ++j)
+                memcpy(&table->classes[class - 1].students[j], &table->classes[class - 1].students[j + 1], sizeof(Student));
+            table->classes[class - 1].capacity--;
+            table->classes[class - 1].students = (Student *)realloc(table->classes[class - 1].students, (table->classes[class - 1].capacity + 1) * sizeof(Student));
+            return DELETE_SUCCESS;
+        }
+    }
+    return DELETE_ERROR;
 }
-*/
+
 void table_print(Table *table)
 {
     printf("Number \t Surname \t Initials \t Class\n");
