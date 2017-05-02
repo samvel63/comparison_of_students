@@ -3,7 +3,7 @@ CFLAGS = -g -std=c99 -Wno-unused-result -pipe -O3
 
 db_obj = db/table.o db/io.o db/class.h
 
-all: print  generate execute
+all: print  generate execute delete
 
 generate: $(db_obj) generate.o
 	$(CC) $^ -o $@
@@ -14,7 +14,7 @@ print:    $(db_obj) print.o
 execute:  $(db_obj) execute.o
 	$(CC) $^ -o $@
 
-delete:  $(db_obj) delete.o
+delete:   $(db_obj) delete.o
 	$(CC) $^ -o $@
 
 .c.o:
