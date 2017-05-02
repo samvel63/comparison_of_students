@@ -1,9 +1,9 @@
 CC = gcc
 CFLAGS = -g -std=c99 -Wno-unused-result -pipe -O3
 
-db_obj = db/table.o db/io.o
+db_obj = db/table.o db/io.o db/class.h
 
-all: generate print execute
+all: print  generate execute
 
 generate: $(db_obj) generate.o
 	$(CC) $^ -o $@
@@ -11,7 +11,10 @@ generate: $(db_obj) generate.o
 print:    $(db_obj) print.o
 	$(CC) $^ -o $@
 
-execute:  $(db_obj) class.o execute.o
+execute:  $(db_obj) execute.o
+	$(CC) $^ -o $@
+
+delete:  $(db_obj) delete.o
 	$(CC) $^ -o $@
 
 .c.o:
