@@ -3,7 +3,7 @@
 
 #include "db/api.h"
 
-int main(int argc, char **argv)
+uint32_t main(uint32_t argc, char **argv)
 {
     FILE *in = fopen(argv[1], "r");
     if (argc != 2) {
@@ -22,7 +22,7 @@ int main(int argc, char **argv)
     }
 
     Student student;
-    int class = 0;
+    uint32_t class = 0;
     while(student_read_bin(&student, &class, in)) {
         student_print(&student, class);
     }

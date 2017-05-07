@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <inttypes.h>
 
 #define STR_SIZE 64
 #define MAX_CLASSES 11
@@ -14,7 +15,7 @@ typedef struct {
 } Student;
 
 typedef struct {
-	size_t capacity;
+	uint32_t capacity;
 	Student *students;
 } Class;
 

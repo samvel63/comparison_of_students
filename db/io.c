@@ -5,32 +5,32 @@
 #include "api.h"
 
 /* Student IO */
-int student_read_txt(Student *s, int *class, FILE *in)
+uint32_t student_read_txt(Student *s, uint32_t *class, FILE *in)
 {
     fscanf(in, "%63s", s->surname);
     fscanf(in, "%2s", s->initials);
-    fscanf(in, " %d ", class);
+    fscanf(in, " %u ", class);
     return !feof(in);
 }
 
-int student_read_bin(Student *s, int *class, FILE *in)
+uint32_t student_read_bin(Student *s, uint32_t *class, FILE *in)
 {
     fread(s->surname,  sizeof(char), STR_SIZE, in);
     fread(s->initials, sizeof(char), STR_SIZE, in);
-    fread(class, sizeof(int), 1, in);
+    fread(class, sizeof(uint32_t), 1, in);
     return !feof(in);
 }
 
-void student_write_bin(Student *s, int class, FILE *out)
+void student_write_bin(Student *s, uint32_t class, FILE *out)
 {
     fwrite(s->surname,  sizeof(char), STR_SIZE, out);
     fwrite(s->initials, sizeof(char), STR_SIZE, out);
-    fwrite(&class, sizeof(int), 1, out);
+    fwrite(&class, sizeof(uint32_t), 1, out);
 }
 
-void student_print(Student *s, int class)
+void student_print(Student *s, uint32_t class)
 {
-    printf("%s \t %s %d\n", s->surname, s->initials, class);
+    printf("%s \t %s %u\n", s->surname, s->initials, class);
 
     printf("\n");
 }

@@ -4,10 +4,10 @@
 #include "class.h"
 
 /* Student IO */
-int student_read_txt(Student *s, int *class, FILE *in);
-int student_read_bin(Student *s, int *class, FILE *in);
-void student_write_bin(Student *s, int class, FILE *out);
-void student_print(Student *s, int class);
+uint32_t student_read_txt(Student *s, uint32_t *class, FILE *in);
+uint32_t student_read_bin(Student *s, uint32_t *class, FILE *in);
+void student_write_bin(Student *s, uint32_t class, FILE *out);
+void student_print(Student *s, uint32_t class);
 is_student_bin(FILE *in);
 
 #endif

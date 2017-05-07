@@ -3,7 +3,7 @@
 
 #include "db/api.h"
 
-int main(int argc, char **argv)
+uint32_t main(uint32_t argc, char **argv)
 {
     if (argc != 3) {
         printf("Usage:\n\tvalgrind --leak-check=full ./generate FILE_FROM FILE_TO\n");
@@ -23,7 +23,7 @@ int main(int argc, char **argv)
     char bin[20] = "01102420391232343456";
     fwrite(bin, sizeof(char), 20, out);
 
-    int class = 0;
+    uint32_t class = 0;
     while(student_read_txt(&student, &class, in))
         student_write_bin(&student, class, out);
     fclose(in);

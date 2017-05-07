@@ -5,7 +5,7 @@
 
 #include "db/api.h"
 
-int main(int argc, char **argv)
+uint32_t main(uint32_t argc, char **argv)
 {
     if (argc != 2) {
         printf("Usage:\n\t./execute DB_FILE\n");
@@ -27,20 +27,20 @@ int main(int argc, char **argv)
 
     Student student;
     int32_t difference[11];
-    for (int i = 0; i < 11; ++i)
+    for (uint32_t i = 0; i < 11; ++i)
         difference[i] = 0;
-    int class = 0;
+    uint32_t class = 0;
     while(student_read_bin(&student, &class, in))
         difference[class - 1] += 1;
 
-    for (int i = 0; i < 11; ++i) {
+    for (uint32_t i = 0; i < 11; ++i) {
         if (i + 1 != MAIN_CLASS && difference[i] != 0) {
             if (difference[i] > difference[9])
-                fprintf(stdout, "\n%d-й класс больше 10-го на %d\n", i + 1, difference[i] - difference[9]);
+                fprintf(stdout, "\n%u-й класс больше 10-го на %u\n", i + 1, difference[i] - difference[9]);
             else if (difference[i] < difference[9])
-                fprintf(stdout, "\n%d-й класс меньше 10-го на %d\n", i + 1, difference[9] - difference[i]);
+                fprintf(stdout, "\n%u-й класс меньше 10-го на %u\n", i + 1, difference[9] - difference[i]);
             else
-                fprintf(stdout, "\n%d-й и 10-й классы имеют одинаковое количество учеников - равное %d.\n", i + 1, difference[9]);
+                fprintf(stdout, "\n%u-й и 10-й классы имеют одинаковое количество учеников - равное %u.\n", i + 1, difference[9]);
         }
     }
 
