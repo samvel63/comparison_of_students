@@ -6,7 +6,7 @@
 int main(int argc, char **argv)
 {
     if (argc != 3) {
-        printf("Usage:\n\t./generate FILE_FROM FILE_TO\n");
+        printf("Usage:\n\tvalgrind --leak-check=full ./generate FILE_FROM FILE_TO\n");
         exit(0);
     }
 
@@ -19,14 +19,19 @@ int main(int argc, char **argv)
     }
 
     Student student;
-    Table table;
-    table_create(&table, "CAPACITY STUDENTS");
+    //Table table;
+    ///table_create(&table, "CAPACITY STUDENTS");
 
-    table_load_txt(&table, &student, in);    
+    //table_load_txt(&table, &student, in);    
 
-    table_save(&table, out);
+    //table_save(&table, out)    
+    char bin[20] = "01102420391232343456";
+    fwrite(bin, sizeof(char), 20, out);
 
-    table_destroy(&table);    
+    int class = 0;
+    while(student_read_txt(&student, &class, in))
+        student_write_bin(&student, class, out);
+    //table_destroy(&table);    
     fclose(in);
     fclose(out);
 

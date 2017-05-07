@@ -30,17 +30,27 @@ void table_load_txt(Table *table, Student *student, FILE *in)
     }
 }
 
-void table_load_bin(Table *table, Student *student, FILE *in)
+int table_load_bin(Table *table, Student *student, FILE *in)
 {
+    char true[20] = "01102420391232343456";
+    char bin[20];
+    fread(bin, sizeof(char), 20, in);
+    for (int i = 0; i < 20; ++i) {
+        if (bin[i] != true[i])
+            return -1;
+    }
     int class = 0;
     while (student_read_bin(student, in)) {
         fread(&class, sizeof(int), 1, in);
         add_student(table, student, class);        
     }
+    return 0;
 }
 
 void table_save(Table *table, FILE *out)
 {
+    char bin[20] = "01102420391232343456";
+    fwrite(bin, sizeof(char), 20, out);
     for (int i = 1; i <= MAX_CLASSES; ++i) {
         for (int j = 0; j < table->classes[i - 1].capacity; ++j) {
             student_write_bin(&(table->classes[i - 1].students[j]), out);
@@ -62,7 +72,7 @@ int delete_student(Table *table, Student *student, int class)
 {
     for (int i = 0; i < table->classes[class - 1].capacity; ++i) {
         if (!strcmp(table->classes[class - 1].students[i].surname, student->surname) && !strcmp(table->classes[class - 1].students[i].initials, student->initials)) {
-            for (int j = i; j < table->classes[class - 1].capacity; ++j)
+            for (int j = i; j < table->classes[class - 1].capacity - 1; ++j)
                 memcpy(&table->classes[class - 1].students[j], &table->classes[class - 1].students[j + 1], sizeof(Student));
             table->classes[class - 1].capacity--;
             table->classes[class - 1].students = (Student *)realloc(table->classes[class - 1].students, (table->classes[class - 1].capacity + 1) * sizeof(Student));
