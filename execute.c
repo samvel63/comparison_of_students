@@ -26,7 +26,7 @@ uint32_t main(uint32_t argc, char **argv)
     fread(bin, sizeof(char), 20, in);
 
     Student student;
-    int32_t difference[11];
+    uint32_t difference[11];
     for (uint32_t i = 0; i < 11; ++i)
         difference[i] = 0;
     uint32_t class = 0;

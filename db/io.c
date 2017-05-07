@@ -35,15 +35,28 @@ void student_print(Student *s, uint32_t class)
     printf("\n");
 }
 
-is_student_bin(FILE *in)
+uint32_t is_student_bin(FILE *in)
 {
     char tmp[20];
     char bin[20] = "01102420391232343456";
     fread(tmp, sizeof(char), 20, in);
-    for (int i = 0; i < 20; ++i) {
+    for (uint32_t i = 0; i < 20; ++i) {
         if (bin[i] != tmp[i])
             return 0;
     }
     return 1;
 }
 
+void capacity_classes_save(uint32_t *dif, FILE *out)
+{
+    for (int i = 0; i < MAX_CLASSES; ++i) {
+        printf("%u ", dif[i]);
+        fwrite(&dif[i], sizeof(uint32_t), 1, out);
+    }
+}
+
+uint32_t capacity_classes_load(uint32_t *dif, FILE *out)
+{
+    for (int i = 0; i < MAX_CLASSES; ++i) 
+        fread(&dif[i], sizeof(uint32_t), 1, out);
+}
