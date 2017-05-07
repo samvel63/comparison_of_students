@@ -1,7 +1,7 @@
 CC = gcc
 CFLAGS = -g -std=c99 -Wno-unused-result -pipe -O3
 
-db_obj = db/table.o db/io.o db/class.h
+db_obj = db/io.o db/class.h
 
 all:  generate print execute #main
 
