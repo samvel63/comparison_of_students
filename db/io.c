@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #include "api.h"
 
@@ -32,5 +33,18 @@ void student_print(Student *s, int class)
     printf("%s \t %s %d\n", s->surname, s->initials, class);
 
     printf("\n");
+}
+
+is_student_bin(FILE *in)
+{
+    char tmp[20];
+    char bin[20] = "01102420391232343456";
+    fread(tmp, sizeof(char), 20, in);
+
+    for (int i = 0; i < 20; ++i) {
+        if (bin[i] != tmp[i])
+            return 0;
+    }
+    return 1;
 }
 

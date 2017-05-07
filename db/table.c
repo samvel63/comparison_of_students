@@ -107,3 +107,4 @@ void print_comprison_of_classes(Table *table)
         }
     }
 }
+

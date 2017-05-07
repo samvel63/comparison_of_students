@@ -15,23 +15,21 @@ int main(int argc, char **argv)
         printf("I/O Error: can't open file.\n");
         exit(1);
     }
-    char bin[20] = "01102420391232343456";
-    fread(bin, sizeof(char), 20, in);
+
+    if(!is_student_bin(in)) {
+        fprintf(stderr, "Incorrect format.\n");
+        exit(2);
+    }
 
     Student student;
     int class = 0;
     while(student_read_bin(&student, &class, in)) {
         student_print(&student, class);
     }
-    //table_load_bin(&table, &student, in);
         
-    
-    //printf("\n\t\t%s\n", table.name);
-    //table_print(&table);
     printf("\n");
     
     fclose(in);
-    //table_destroy(&table);
     return 0;
 }
 

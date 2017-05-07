@@ -17,6 +17,11 @@ int main(int argc, char **argv)
         printf("I/O Error: can't open file.\n");
         exit(1);
     }
+
+    if(!is_student_bin(in)) {
+        fprintf(stderr, "Incorrect format.\n");
+        exit(2);
+    }
     char bin[20] = "01102420391232343456";
     fread(bin, sizeof(char), 20, in);
 
@@ -27,9 +32,6 @@ int main(int argc, char **argv)
     int class = 0;
     while(student_read_bin(&student, &class, in))
         difference[class - 1] += 1;
-   /* for (int i = 0; i < 11; ++i) {
-        printf("%u\n", difference[i]);
-    }*/
 
     for (int i = 0; i < 11; ++i) {
         if (i + 1 != MAIN_CLASS && difference[i] != 0) {
