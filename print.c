@@ -26,7 +26,6 @@ uint32_t main(uint32_t argc, char **argv)
     while(student_read_bin(&student, &class, in)) {
         student_print(&student, class);
     }
-        
     printf("\n");
     
     fclose(in);

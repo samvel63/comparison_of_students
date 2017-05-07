@@ -40,7 +40,6 @@ is_student_bin(FILE *in)
     char tmp[20];
     char bin[20] = "01102420391232343456";
     fread(tmp, sizeof(char), 20, in);
-
     for (int i = 0; i < 20; ++i) {
         if (bin[i] != tmp[i])
             return 0;

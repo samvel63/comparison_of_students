@@ -10,7 +10,7 @@ with open('input2', 'w') as f:
 		if i % 10000 == 0:
 			print i
 		f.write(template.format(**{
-			'surname': ''.join(choice(ascii_letters) for _ in range(randint(1, 63 + 1))),
+			'surname': ''.join(choice(ascii_letters) for _ in range(randint(1, 63))),
 			'initials': choice(ascii_letters) + choice(ascii_letters),
 			'class': str(randint(1, 11))
 		}))
