@@ -9,6 +9,7 @@ int search(FILE *in, Student *s, int class)
     Student student;
     while(student_read_bin(&student, &c, in)) {
         i++;
+        printf("%s %s %d\n", student.surname, student.initials, c);
         if(!strcmp(s->surname, student.surname) && !strcmp(s->initials, student.initials) && c == class) {
             printf("В списке %u === %s %s %u\n", i, student.surname, student.initials, c);
             rewind(in);
@@ -17,6 +18,8 @@ int search(FILE *in, Student *s, int class)
         //if (!(i % 10000))
           //  printf("%d %s %s %d\n", i, student.surname, student.initials, c);
     }
+    printf("%s %s %d\n", student.surname, student.initials, c);
+    
     return 0;
 }
 

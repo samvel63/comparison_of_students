@@ -31,16 +31,13 @@ uint32_t main(uint32_t argc, char **argv)
     }
 
     uint32_t class = 0;
-    for (int i = 1; i <= MAX_CLASSES; ++i) {
-        while(student_read_txt(&student, &class, in)) {
-            if (class == i) {
-                student_write_bin(&student, class, out);
-                difference[class - 1]++;
-            }
-        }
-        rewind(in);
+    while(student_read_txt(&student, &class, in)) {
+        student_write_bin(&student, class, out);
+        difference[class - 1]++;
     }
 
+    student_write_bin(&student, class, out);
+    difference[class - 1]++;
     capacity_classes_save(&difference[0], count);
 
     fclose(in);

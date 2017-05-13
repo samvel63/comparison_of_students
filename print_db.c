@@ -7,7 +7,7 @@ uint32_t main(uint32_t argc, char **argv)
 {
     FILE *in = fopen(argv[1], "r");
     if (argc != 2) {
-        printf("Usage:\n\t./print DB_FILE\n");
+        printf("Usage:\n\t./print_db DB_FILE\n");
         exit(0);
     }
 
